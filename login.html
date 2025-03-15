@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login - Taekwondo Community</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="auth.css">
+</head>
+<body>
+    <div class="auth-container">
+        <div class="auth-card">
+            <div class="auth-header">
+                <h1>Welcome Back</h1>
+                <p>Sign in to continue your Taekwondo journey</p>
+            </div>
+            
+            <div class="alert-message error" id="errorMessage" style="display: none;"></div>
+            <div class="alert-message success" id="successMessage" style="display: none;"></div>
+            
+            <form class="auth-form" id="loginForm">
+                <div class="form-group">
+                    <label for="email">Email</label>
+                    <input type="email" id="email" name="email" placeholder="Enter your email" required>
+                    <div class="error-text" id="emailError"></div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password" placeholder="Enter your password" required>
+                    <div class="error-text" id="passwordError"></div>
+                </div>
+                
+                <div class="form-options">
+                    <div class="remember-me">
+                        <input type="checkbox" id="remember" name="remember">
+                        <label for="remember">Remember me</label>
+                    </div>
+                    <a href="#" class="forgot-password">Forgot password?</a>
+                </div>
+                
+                <button type="submit" class="auth-button" id="loginButton">
+                    <span class="button-text">Sign In</span>
+                    <span class="button-loader" style="display: none;"></span>
+                </button>
+            </form>
+            
+            <div class="auth-footer">
+                <p>Don't have an account? <a href="register.html">Sign up</a></p>
+            </div>
+            
+            <div class="return-home">
+                <a href="index.html">← Back to home</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const loginForm = document.getElementById('loginForm');
+            const loginButton = document.getElementById('loginButton');
+            const buttonText = loginButton.querySelector('.button-text');
+            const buttonLoader = loginButton.querySelector('.button-loader');
+            const errorMessage = document.getElementById('errorMessage');
+            const successMessage = document.getElementById('successMessage');
+            const emailError = document.getElementById('emailError');
+            const passwordError = document.getElementById('passwordError');
+
+            // Function to validate email format
+            function isValidEmail(email) {
+                const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                return emailRegex.test(email);
+            }
+
+            // Function to display specific field errors
+            function showFieldError(element, message) {
+                element.textContent = message;
+                element.style.display = 'block';
+            }
+
+            // Function to clear field errors
+            function clearFieldErrors() {
+                emailError.textContent = '';
+                emailError.style.display = 'none';
+                passwordError.textContent = '';
+                passwordError.style.display = 'none';
+            }
+
+            // Function to show alert messages
+            function showAlert(element, message) {
+                element.textContent = message;
+                element.style.display = 'block';
+                setTimeout(() => {
+                    element.style.display = 'none';
+                }, 5000);
+            }
+
+            // Set loading state
+            function setLoading(isLoading) {
+                if (isLoading) {
+                    buttonText.style.display = 'none';
+                    buttonLoader.style.display = 'block';
+                    loginButton.disabled = true;
+                } else {
+                    buttonText.style.display = 'block';
+                    buttonLoader.style.display = 'none';
+                    loginButton.disabled = false;
+                }
+            }
+
+            loginForm.addEventListener('submit', function(e) {
+                e.preventDefault();
+                clearFieldErrors();
+                errorMessage.style.display = 'none';
+                successMessage.style.display = 'none';
+
+                const email = document.getElementById('email').value.trim();
+                const password = document.getElementById('password').value.trim();
+                let hasError = false;
+
+                // Validate email
+                if (!email) {
+                    showFieldError(emailError, 'Email is required');
+                    hasError = true;
+                } else if (!isValidEmail(email)) {
+                    showFieldError(emailError, 'Please enter a valid email address');
+                    hasError = true;
+                }
+
+                // Validate password
+                if (!password) {
+                    showFieldError(passwordError, 'Password is required');
+                    hasError = true;
+                }
+
+                if (hasError) return;
+
+                // Set loading state
+                setLoading(true);
+
+                // Prepare data for API
+                const data = {
+                    email: email,
+                    password: password
+                };
+
+                // Call Xano API
+                fetch('https://x8ki-letl-twmt.n7.xano.io/api:jyotHfBB/auth/login', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify(data)
+                })
+                .then(response => {
+                    if (!response.ok) {
+                        return response.json().then(err => {
+                            throw new Error(err.message || 'Login failed. Please check your credentials.');
+                        });
+                    }
+                    return response.json();
+                })
+                .then(data => {
+                    // Login successful
+                    showAlert(successMessage, 'Login successful! Redirecting...');
+                    
+                    // Store auth token
+                    if (data.authToken) {
+                        localStorage.setItem('authToken', data.authToken);
+                    }
+                    
+                    // Redirect to home page after delay
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 1500);
+                })
+                .catch(error => {
+                    showAlert(errorMessage, error.message || 'Login failed. Please try again.');
+                })
+                .finally(() => {
+                    setLoading(false);
+                });
+            });
+        });
+    </script>
+</body>
+</html>

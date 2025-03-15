@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taekwondo History</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <a href="index.html" class="logo">TAEKWONDO</a>
+            
+            <div class="menu-toggle" id="menu-toggle">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="characteristics.html" class="nav-link">Techniques</a></li>
+                <!-- <li><a href="#" class="nav-link">History</a></li> -->
+                <!-- <li><a href="#" class="nav-link">Community</a></li> -->
+            </ul>
+            
+            <div class="auth-links">
+                <!-- This will be automatically populated by auth-service.js -->
+            </div>
+        </div>
+    </nav>
+    <header>
+        <h1>Introduction to Taekwondo</h1>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <div class="gallery">
+                <img src="./assets/h1.webp" alt="Taekwondo demonstration" class="main-image">
+            </div>
+        </section>
+
+        <section class="content">
+            <p>
+                First, Taekwondo is the right way of using <span class="highlight">Tae and Kwon</span> 'fists and feet,' or all the parts of the body that are represented by fists and feet.
+            </p>
+            <p>
+                Second, it is a way to control or calm down fights and keep the peace. This concept comes from the meaning of <span class="highlight">Tae Kwon</span> 'to put fists under control' [or 'to step on fists'].
+            </p>
+            <p>
+                Thus Taekwondo means "the right way of using all parts of the body to stop fights and help to build a better and more peaceful world."
+            </p>
+            <p>
+                Taekwondo has been developing with the 5000-year long history of Korea, being called by several different names in the course. In Korea, Taekwondo began as a defense martial art called "Subak" or "Taekkyon," and developed as a way of training body and mind in the ancient kingdom of Koguryo, under the name of "Sunbae."
+            </p>
+            <p>
+                In the Shilla period, it had become the backbone of Hwarangdo that aimed at producing leaders of the country.
+            </p>
+        </section>
+    </main>
+
+    <div class="container">
+        <a href="characteristics.html" class="next-button">Next: Characteristics of Taekwondo</a>
+    </div>
+
+    <footer>
+        <p>Information provided by the World Taekwondo Federation (WTF) - the International Governing Body for the sport.</p>
+        <p>Presented by Raiza Cuevas in Empowerment Technology</p>
+    </footer>
+
+        <!-- Add auth service script -->
+        <script src="auth-service.js"></script>
+    
+        <!-- Toggle mobile menu -->
+        <script>
+            document.getElementById('menu-toggle').addEventListener('click', function() {
+                document.querySelector('.nav-menu').classList.toggle('active');
+                document.querySelector('.menu-toggle').classList.toggle('active');
+            });
+            
+            // Highlight current page in navigation
+            document.addEventListener('DOMContentLoaded', function() {
+                const currentPage = window.location.pathname.split('/').pop();
+                const navLinks = document.querySelectorAll('.nav-link');
+                
+                navLinks.forEach(link => {
+                    const linkPage = link.getAttribute('href');
+                    if (linkPage === currentPage) {
+                        link.classList.add('active');
+                    }
+                });
+            });
+        </script>
+</body>
+</html>

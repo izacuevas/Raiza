@@ -1,0 +1,332 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Taekwondo Characteristics</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-container">
+            <div class="nav-left">
+                <button class="menu-toggle" id="menu-toggle" aria-label="Toggle menu">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
+                <a href="index.html" class="logo">TAEKWONDO</a>
+            </div>
+            
+            <ul class="nav-menu">
+                <li><a href="index.html" class="nav-link">Home</a></li>
+                <li><a href="characteristics.html" class="nav-link">Techniques</a></li>
+                <!-- <li><a href="#" class="nav-link">History</a></li> -->
+                <!-- <li><a href="#" class="nav-link">Community</a></li> -->
+            </ul>
+            
+            <div class="auth-links">
+                <!-- This will be automatically populated by auth-service.js -->
+            </div>
+        </div>
+    </nav>  
+
+    <header>
+        <h1>Defining Characteristics of Taekwondo</h1>
+    </header>
+    
+    <main>
+        <section class="hero">
+            <div class="gallery">
+                <img src="./assets/kick.webp" alt="Taekwondo technique demonstration" class="main-image" id="feature-image">
+            </div>
+        </section>
+
+        <section class="characteristics accordion-container">
+            <div class="characteristic-item accordion" data-image="./assets/kick.webp">
+                <div class="accordion-header">
+                    <h2><span class="highlight">Kicking</span></h2>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p>
+                        As compared to other martial arts, all styles of taekwondo (but especially sport taekwondo) places heavy emphasis on kicking.
+                        This is predicated on the principle that legs are longer and stronger than arms and so should be more effective in combat.
+                        Taekwondo kicking is also often higher than other martial arts kicking, often aiming for head-height.
+                    </p>
+                    <button class="view-technique">View Technique</button>
+                </div>
+            </div>
+
+            <div class="characteristic-item accordion" data-image="./assets/twist.webp">
+                <div class="accordion-header">
+                    <h2><span class="highlight">Twisting Power</span></h2>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p>
+                        Another characteristic common to all forms of taekwondo is the user of "twisting power" particularly in blocks and punches.
+                        The idea here is that a block or a punch is faster, more powerful, and more accurate if the arm and hand are rotating through the movement.
+                        So for example punches start palm-up at the waist then finish palm-down at the target so that the fist is twisting to the target.
+                        Taekwondo practitioners compare this to the rifling motion of a bullet.
+                    </p>
+                    <button class="view-technique">View Technique</button>
+                </div>
+            </div>
+
+            <div class="characteristic-item accordion" data-image="./assets/action.webp">
+                <div class="accordion-header">
+                    <h2><span class="highlight">Action / Reaction</span></h2>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p>
+                        Another characteristic of taekwondo is the notion (for example) that as one part of the body moves forward,
+                        another part should be moving backward.
+                        So for example when practicing punches, the non-punching hand (the off hand) will aim 
+                        forward before the punch so that it can be pulled sharply backward during the punch.
+                        It is believed that this gives the punch additional power and "snap."
+                    </p>
+                    <button class="view-technique">View Technique</button>
+                </div>
+            </div>
+
+            <div class="characteristic-item accordion" data-image="./assets/narrowstance.webp">
+                <div class="accordion-header">
+                    <h2><span class="highlight">Narrow Stance</span></h2>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p>
+                        Unlike many other martial arts, taekwondo generally prefers a narrow stance rather than a wide stance.
+                        Wide stances are believed to provide more stability, but taekwondo practitioners believe that wide stances also diminish your ability to turn quickly.
+                        Narrow stances facilitate turning the body quickly, which is especially important in taekwondo given its emphasis on spinning and jumping kicks.
+                    </p>
+                    <button class="view-technique">View Technique</button>
+                </div>
+            </div>
+
+            <div class="characteristic-item accordion" data-image="./assets/relax.webp">
+                <div class="accordion-header">
+                    <h2><span class="highlight">Relax / Strike</span></h2>
+                    <div class="accordion-icon">+</div>
+                </div>
+                <div class="accordion-content">
+                    <p>
+                        Taekwondo practitioners believe that, one should relax the body before striking,
+                        then tense the relevant portions of the body during the strike.
+                        The premise is that this conserves energy (keeping one's muscles constantly tensed is tiring) and also improves power.
+                    </p>
+                    <button class="view-technique">View Technique</button>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const featureImage = document.getElementById('feature-image');
+            const accordionItems = document.querySelectorAll('.accordion');
+            const viewButtons = document.querySelectorAll('.view-technique');
+            
+            // Store the original image src to reset if needed
+            const defaultImage = featureImage.src;
+            
+            // Set up accordion functionality
+            accordionItems.forEach(item => {
+                const header = item.querySelector('.accordion-header');
+                
+                header.addEventListener('click', function() {
+                    // Toggle current accordion
+                    item.classList.toggle('active');
+                    
+                    // Optional: Close other accordions when opening this one
+                    // Comment out this block if you want multiple accordions open at once
+                    accordionItems.forEach(otherItem => {
+                        if (otherItem !== item && otherItem.classList.contains('active')) {
+                            otherItem.classList.remove('active');
+                        }
+                    });
+                });
+                
+                // Set up view technique button
+                const viewButton = item.querySelector('.view-technique');
+                
+                viewButton.addEventListener('click', function(e) {
+                    // Prevent the click from toggling the accordion
+                    e.stopPropagation();
+                    
+                    const imagePath = item.getAttribute('data-image');
+                    
+                    // Deactivate all items first (for the view state, not accordion state)
+                    accordionItems.forEach(accItem => {
+                        accItem.classList.remove('technique-active');
+                    });
+                    
+                    // Activate current item for view state
+                    item.classList.add('technique-active');
+                    
+                    // Change the image with a fade effect
+                    featureImage.style.opacity = 0;
+                    
+                    setTimeout(() => {
+                        featureImage.src = imagePath;
+                        featureImage.style.opacity = 1;
+                    }, 300);
+                    
+                    // Scroll to image if on mobile
+                    if (window.innerWidth < 768) {
+                        document.querySelector('.gallery').scrollIntoView({ 
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Open the first accordion by default
+            if (accordionItems.length > 0) {
+                accordionItems[0].classList.add('active');
+            }
+        });
+    </script>
+
+    <div class="container">
+        <a href="index.html" class="previous-button">Previous: Introduction</a>
+    </div>
+
+    <footer>
+        <p>Information provided by the World Taekwondo Federation (WTF)</p>
+        <p>Presented by Raiza Cuevas in Empowerment Technology</p>
+    </footer>
+
+    <!-- Add auth service script -->
+    <script src="auth-service.js"></script>
+    
+    <!-- Toggle mobile menu -->
+    <script>
+        document.getElementById('menu-toggle').addEventListener('click', function() {
+            document.querySelector('.nav-menu').classList.toggle('active');
+            document.querySelector('.menu-toggle').classList.toggle('active');
+        });
+        
+        // Highlight current page in navigation
+        document.addEventListener('DOMContentLoaded', function() {
+            const currentPage = window.location.pathname.split('/').pop();
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            navLinks.forEach(link => {
+                const linkPage = link.getAttribute('href');
+                if (linkPage === currentPage) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- Technique Modal with Image -->
+    <div class="technique-modal" id="techniqueModal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3 id="modalTitle">Technique</h3>
+                <button class="close-modal" id="closeModal">×</button>
+            </div>
+            <div class="modal-image-container">
+                <img id="modalImage" src="" alt="Technique demonstration" class="modal-image">
+            </div>
+            <div class="modal-body" id="modalBody">
+                <!-- Content will be loaded dynamically -->
+            </div>
+            <div class="modal-footer">
+                <button class="view-technique-modal" id="modalViewButton">View Technique</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Add this script to make the modal work -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Get modal elements
+            const modal = document.getElementById('techniqueModal');
+            const modalTitle = document.getElementById('modalTitle');
+            const modalBody = document.getElementById('modalBody');
+            const modalImage = document.getElementById('modalImage');
+            const closeModal = document.getElementById('closeModal');
+            const modalViewButton = document.getElementById('modalViewButton');
+            
+            // Get accordion items
+            const accordionItems = document.querySelectorAll('.accordion');
+            
+            // Function to open modal with content
+            function openTechniqueModal(title, content, imagePath) {
+                modalTitle.textContent = title;
+                modalBody.innerHTML = content;
+                modalImage.src = imagePath;
+                
+                // Store image path on the button for later use
+                modalViewButton.setAttribute('data-image', imagePath);
+                
+                // Show modal
+                modal.classList.add('active');
+                
+                // Prevent page scrolling when modal is open
+                document.body.style.overflow = 'hidden';
+            }
+            
+            // Setup view technique buttons in accordions
+            accordionItems.forEach(item => {
+                const viewButton = item.querySelector('.view-technique');
+                const title = item.querySelector('h2').innerText;
+                const content = item.querySelector('p').innerHTML;
+                const imagePath = item.getAttribute('data-image');
+                
+                viewButton.addEventListener('click', function(e) {
+                    e.stopPropagation();
+                    openTechniqueModal(title, content, imagePath);
+                });
+            });
+            
+            // Modal view technique button
+            modalViewButton.addEventListener('click', function() {
+                const imagePath = this.getAttribute('data-image');
+                const featureImage = document.getElementById('feature-image');
+                
+                // Change the main image
+                featureImage.style.opacity = 0;
+                setTimeout(() => {
+                    featureImage.src = imagePath;
+                    featureImage.style.opacity = 1;
+                }, 300);
+                
+                // Close the modal
+                closeModal.click();
+                
+                // Scroll to the image
+                document.querySelector('.gallery').scrollIntoView({ 
+                    behavior: 'smooth' 
+                });
+            });
+            
+            // Close modal when clicking the close button
+            closeModal.addEventListener('click', function() {
+                modal.classList.remove('active');
+                document.body.style.overflow = ''; // Restore scrolling
+            });
+            
+            // Close modal when clicking outside the content
+            modal.addEventListener('click', function(e) {
+                if (e.target === modal) {
+                    closeModal.click();
+                }
+            });
+            
+            // Close modal with Escape key
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && modal.classList.contains('active')) {
+                    closeModal.click();
+                }
+            });
+        });
+    </script>
+</body>
+</html>
